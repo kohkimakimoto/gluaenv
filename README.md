@@ -27,7 +27,7 @@ AAA=BBB
 CCC=DDD
 ```
 
-If this function fails, it returns nil, plus a string describing the error.
+If this function fails, it returns `nil`, plus a string describing the error.
 
 ## Usage
 
