@@ -61,6 +61,9 @@ assert(env.get("BBB") == "bbbbbbbb")
 assert(env.get("CCC") == nil)
 assert(env.get("DDD") == "ddddddd")
 
+r1, r2 = env.loadfile("` + tmpFile.Name() + `.notfound_file")
+assert(r1 == nil)
+
 `); err != nil {
 		t.Error(err)
 	}

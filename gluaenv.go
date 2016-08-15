@@ -21,10 +21,16 @@ func Loader(L *lua.LState) int {
 }
 
 func envSet(L *lua.LState) int {
-	key := L.CheckString(1)
-	value := L.CheckString(2)
-	os.Setenv(key, value)
-	return 0
+	// same github.com/yuin/gopher-lua/oslib.go
+	err := os.Setenv(L.CheckString(1), L.CheckString(2))
+	if err != nil {
+		L.Push(lua.LNil)
+		L.Push(lua.LString(err.Error()))
+		return 2
+	} else {
+		L.Push(lua.LTrue)
+		return 1
+	}
 }
 
 func envGet(L *lua.LState) int {
@@ -40,10 +46,13 @@ func envGet(L *lua.LState) int {
 
 func envLoadFile(L *lua.LState) int {
 	if err := loadFile(L.CheckString(1)); err != nil {
-		panic(err)
+		L.Push(lua.LNil)
+		L.Push(lua.LString(err.Error()))
+		return 2
+	} else {
+		L.Push(lua.LTrue)
+		return 1
 	}
-
-	return 0
 }
 
 // loadFile' s code is highly inspired by https://github.com/joho/godotenv/blob/master/godotenv.go

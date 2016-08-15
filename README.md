@@ -10,9 +10,24 @@ go get github.com/kohkimakimoto/gluaenv
 
 ## API
 
-* `env.set(key, value)`
-* `env.get(key)`
-* `env.loadfile(file)`
+### `env.set(key, value)`
+
+Same `os.setenv`
+
+### `env.get(key)`
+
+Same `os.getenv`
+
+### `env.loadfile(file)`
+
+Loads environment variables from a file. The file is as the following:
+
+```
+AAA=BBB
+CCC=DDD
+```
+
+If this function fails, it returns nil, plus a string describing the error.
 
 ## Usage
 
